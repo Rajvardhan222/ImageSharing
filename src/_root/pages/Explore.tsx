@@ -4,10 +4,20 @@ import { useInView } from "react-intersection-observer";
 
 import { useGetPosts, useSearchPosts } from "@/lib/react-query/queriesandMutations";
 import GridPostList from "@/shared/GridPostList";
-import SearchResults from "@/shared/SearchResults";
+
 import Loader from "@/shared/Loader"; 
 import { useEffect, useState } from "react";
-
+const SearchResults = ({ isSearchFetching, searchedPosts }) => {
+  if (isSearchFetching) {
+    return <Loader />;
+  } else if (searchedPosts && searchedPosts.documents.length > 0) {
+    return <GridPostList posts={searchedPosts.documents} />;
+  } else {
+    return (
+      <p className="text-light-4 mt-10 text-center w-full">No results found</p>
+    );
+  }
+};
 
 function Explore() {
   const { ref, inView } = useInView();

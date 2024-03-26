@@ -97,7 +97,7 @@ export class Auth  {
           }
          }
 
-         async singout(){
+          singout=async()=>{
           try {
             return await this.account.deleteSession('current')
           } catch (error) {
