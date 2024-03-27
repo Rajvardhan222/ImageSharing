@@ -47,9 +47,17 @@ export const useCreatePost = () => {
 };
 
 export const useGetRecentPosts = () => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
-    queryFn: () => authservice.getRecentPosts(),
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
+    queryFn: authservice.getRecentPosts,
+    getNextPageParam: (lastPage) => {
+      if (lastPage && lastPage.documents.length === 0) {
+        return null;
+      }
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+      console.log('lastPage');
+      return lastId;
+    },
   });
 };
 
@@ -155,23 +163,21 @@ export const useGetPosts = () => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
     queryFn: authservice.getInfinitePosts,
-    getNextPageParam: (lastPage ) => {
-     
+    getNextPageParam: (lastPage) => {
       if (lastPage && lastPage.documents.length === 0) {
         return null;
-    }
-    const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
-    return lastId;
-
-      
+      }
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+      return lastId;
+      console.log(lastPage);
     },
   });
 };
 
 export const useSearchPosts = (searchTerm: string) => {
-    return useQuery({
-      queryKey: [QUERY_KEYS.SEARCH_POSTS, searchTerm],
-      queryFn: () => authservice.searchPost(searchTerm),
-      enabled: !!searchTerm,
-    });
-  };
+  return useQuery({
+    queryKey: [QUERY_KEYS.SEARCH_POSTS, searchTerm],
+    queryFn: () => authservice.searchPost(searchTerm),
+    enabled: !!searchTerm,
+  });
+};

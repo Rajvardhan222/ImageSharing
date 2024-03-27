@@ -185,12 +185,17 @@ export class Auth  {
             
           }
          }
-         async getRecentPosts(){
+         getRecentPosts = async({pageParam} : {pageParam:string}) =>{
+          const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(7)];
+
+          if (pageParam) {
+            queries.push(Query.cursorAfter(pageParam.toString()));
+          }
           try {
             const posts = await this.database.listDocuments(
               conf.DATABASE_ID,
               conf.POSTS,
-              [Query.orderDesc("$createdAt"),Query.limit(20)]
+             queries
 
               )
               if (!posts) throw Error
@@ -198,6 +203,7 @@ export class Auth  {
               
               return posts
           } catch (error) {
+            console.log(error);
             
           }
          }
@@ -359,7 +365,7 @@ export class Auth  {
  }
 
 getInfinitePosts=async({pageParam}: { pageParam: number })=>{
-  const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(9)];
+  const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(6)];
 
   if (pageParam) {
     queries.push(Query.cursorAfter(pageParam.toString()));

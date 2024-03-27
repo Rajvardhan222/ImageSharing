@@ -7,6 +7,7 @@ import GridPostList from "@/shared/GridPostList";
 
 import Loader from "@/shared/Loader"; 
 import { useEffect, useState } from "react";
+import { Loader2Icon } from "lucide-react";
 const SearchResults = ({ isSearchFetching, searchedPosts }) => {
   if (isSearchFetching) {
     return <Loader />;
@@ -22,7 +23,7 @@ const SearchResults = ({ isSearchFetching, searchedPosts }) => {
 function Explore() {
   const { ref, inView } = useInView();
   
-  const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
+  const { data: posts, fetchNextPage, hasNextPage ,isFetching} = useGetPosts();
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearch = useDebounce(searchValue, 500);
   let {data:searchPosts , isFetching:isSearchFetching} = useSearchPosts(debouncedSearch)
@@ -35,7 +36,7 @@ useEffect(() => {
   if (inView && !searchValue) {
     fetchNextPage();
   }
-}, [inView, searchValue]);
+}, [inView]);
    
   return (
     <div className="explore-container">
@@ -91,10 +92,16 @@ useEffect(() => {
     </div>
 
     {hasNextPage && !searchValue && (
-      <div  className="mt-10">
-        <Loader />
+      <div  className="mt-10" ref={ref}>
+       <Loader2Icon className="animate-spin"/>
       </div>
     )}
+    {!hasNextPage && !searchValue && !isFetching && (
+      <div  className="mt-10" ref={ref}>
+      <p>Nothing More</p>
+      </div>
+    )}
+   
   </div>
 );
 }
