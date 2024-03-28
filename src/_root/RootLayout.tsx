@@ -19,10 +19,11 @@ function RootLayout() {
   if (loadingUser) {
     return (
       <div className="w-full flex justify-center items-center">
-        <Loader2Icon size={80} strokeWidth={3} className=" animate-spin "/>
+        <Loader2Icon size={80} strokeWidth={3} className=" animate-spin stroke-dash-custom"/>
       </div>
     );
   } else {
+    
     return (
       <div className="w-full md:flex">
         <TopBar />

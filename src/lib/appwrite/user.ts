@@ -173,9 +173,9 @@ export class Auth  {
           }
          }
 
-         async getFilePreview(fileId : string){
+          getFilePreview(fileId : string){
           try {
-            const fileUrl = await this.storage.getFilePreview(conf.BUCKET_ID,
+            const fileUrl =  this.storage.getFilePreview(conf.BUCKET_ID,
               fileId,
               2000,2000,'top',10
               )

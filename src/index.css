@@ -290,4 +290,9 @@
   .shad-button_ghost {
     @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important;
   }
+  /* Custom CSS */
+.stroke-dash-custom {
+  stroke-dasharray: 157 314; /* Approximately 50% of the circle circumference */
+}
+
 }
