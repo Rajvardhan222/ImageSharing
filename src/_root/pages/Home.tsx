@@ -5,8 +5,12 @@ import PostCard from './PostCard';
 import { Loader2Icon } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import { useUserContext } from '@/context/AuthContext';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function Home() {
+  const { isAuthenticated } = useUserContext();
+let navigate = useNavigate();
   const { ref, inView } = useInView({
     rootMargin:"6000px 0px 0px 0px" ,
     threshold:0,
@@ -20,6 +24,11 @@ function Home() {
       
     }
   }, [inView]);
+  useEffect(()=>{
+    if(!isAuthenticated){
+      navigate('/sign-in')
+    }
+  },[navigate])
   // useEffect(() => {
   //   window.addEventListener('scroll', handleScroll);
   //   return () => {

@@ -177,7 +177,10 @@ export class Auth  {
           try {
             const fileUrl =  this.storage.getFilePreview(conf.BUCKET_ID,
               fileId,
-              2000,2000,'top',50
+              2000,
+              2000,
+              'top',
+              50
               )
               return fileUrl
           } catch (error) {
