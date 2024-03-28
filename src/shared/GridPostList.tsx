@@ -29,7 +29,7 @@ function GridPostList({
               <div className="flex items-center justify-start gap-2 flex-1">
                 <img
                   src={
-                    post.creator.imageUrl ||
+                    post?.creator.imageURl ||
                     "/assets/icons/profile-placeholder.svg"
                   }
                   alt="creator"
