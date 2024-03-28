@@ -183,3 +183,22 @@ export const useSearchPosts = (searchTerm: string) => {
       enabled: !!searchTerm,
     });
   };
+
+
+  export const useGetSavedPosts = (id:string) => {
+    return useInfiniteQuery({
+      queryKey: [QUERY_KEYS.GET_INFINITE_SAVED_POSTS,],
+      queryFn: ({ pageParam }) => authservice.getInfiniteSavePosts({id:id, pageParam:pageParam}),
+      getNextPageParam: (lastPage ) => {
+       
+        if (lastPage && lastPage.documents.length === 0) {
+          return null;
+      }
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+      return lastId;
+  console.log(lastPage);
+  
+        
+      },
+    });
+  };
