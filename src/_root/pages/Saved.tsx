@@ -1,21 +1,28 @@
 import { useUserContext } from "@/context/AuthContext";
 import { useGetSavedPosts } from "@/lib/react-query/queriesandMutations";
 import GridPostSave from "@/shared/GridPostSave.tsx";
-import { Loader2Icon } from "lucide-react";
-import React from "react";
+import { Loader, Loader2Icon, LoaderCircleIcon } from "lucide-react";
+import React, { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 function Saved() {
-  
+  const { ref, inView } = useInView();
   let {user} = useUserContext()
   let {
     data: savedPost,
     hasNextPage,
-    isFetching,
+    isFetching,isPending,
     fetchNextPage,
   } = useGetSavedPosts(user.id);
   console.log(savedPost);
   const shouldShowPosts = savedPost?.pages.every((item) => item?.documents.length === 0);
-  return (
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView]);
+  if(!isPending)
+  { return (
     <div className="flex flex-col w-full ml- explore-container">
       <div className="flex md:w-full w-full md:mt-10 gap-2  ">
         <img
@@ -25,7 +32,7 @@ function Saved() {
         <p className=" md:text-3xl font-bold">Saved Posts</p>
       </div>
 
-      <div className="flex justify-start mt-7   w-full ml-4 px-2">
+      <div className="flex justify-between mt-7   w-full ml-4 px-2">
         <div className="flex  mt-3 gap-2 w-96">
           <img src="/assets/icons/posts.svg" className=" fill-white "></img>
           <p className="  font-bold ">Saved Posts</p>
@@ -49,12 +56,26 @@ function Saved() {
    
   ))
 }
-
 </div>
+{hasNextPage &&(
+      <div  className="mt-10" ref={ref}>
+       <Loader  className="animate-spin"/>
+      </div>
+    )}
+    {!hasNextPage  && !isFetching && (
+      <div  className="mt-10" ref={ref}>
+      <p>Nothing More</p>
+      </div>
+    )}
 
 
     </div>
-  );
+  )}
+  else{
+   return <div className="flex items-center justify-center w-full">
+      <Loader  className="animate-spin"  size={60} />
+    </div>
+  }
 }
 
 export default Saved;
