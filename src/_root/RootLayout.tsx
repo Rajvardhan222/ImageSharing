@@ -2,7 +2,7 @@ import { useUserContext } from '@/context/AuthContext'
 import BottomBar from '@/shared/BottomBar'
 import LeftSideBar from '@/shared/LeftSideBar'
 import TopBar from '@/shared/TopBar'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 function RootLayout() {
@@ -11,6 +11,12 @@ function RootLayout() {
   if(!isAuthenticated){
     navigate('/sign-in')
   }
+  useEffect(()=>{
+    const { isAuthenticated } = useUserContext();
+  if(!isAuthenticated){
+    navigate('/sign-in')
+  }
+  },[navigate])
   return (
     <div className='w-full md:flex'>
       <TopBar/>
