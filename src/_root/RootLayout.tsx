@@ -8,11 +8,9 @@ import { Outlet, useNavigate } from 'react-router-dom'
 function RootLayout() {
   let navigate = useNavigate()
   const { isAuthenticated } = useUserContext();
-  if(!isAuthenticated){
-    navigate('/sign-in')
-  }
+  
   useEffect(()=>{
-    const { isAuthenticated } = useUserContext();
+    
   if(!isAuthenticated){
     navigate('/sign-in')
   }
