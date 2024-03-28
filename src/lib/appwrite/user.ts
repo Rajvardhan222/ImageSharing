@@ -186,7 +186,7 @@ export class Auth  {
           }
          }
          getRecentPosts = async({pageParam} : {pageParam:string}) =>{
-          const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(7)];
+          const queries: any[] = [Query.orderDesc("$createdAt"), Query.limit(7)];
 
           if (pageParam) {
             queries.push(Query.cursorAfter(pageParam.toString()));
