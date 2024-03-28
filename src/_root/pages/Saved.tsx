@@ -23,7 +23,7 @@ function Saved() {
   }, [inView]);
   if(!isPending)
   { return (
-    <div className="flex flex-col w-full ml- explore-container">
+    <div className="flex flex-col   explore-container ">
       <div className="flex md:w-full w-full md:mt-10 gap-2  ">
         <img
           src="/assets/icons/save.svg"
