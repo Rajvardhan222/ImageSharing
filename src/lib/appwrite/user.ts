@@ -411,6 +411,54 @@ console.log(posts);
     console.log(error);
   }
  }
+
+
+ getInfiniteUser=async({pageParam}: { pageParam: number })=>{
+  const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(6)];
+
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+  try {
+    let user = await this.database.listDocuments(
+      conf.DATABASE_ID,
+      conf.USER,
+      queries
+    );
+
+    if (!user) throw Error;
+console.log(user);
+
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+ }
+
+ getInfiniteUserResult=async({pageParam,id}: { pageParam: number, id:string })=>{
+  const queries: any[] = [ Query.limit(6),Query.search('userName', id),Query.offset(0)];
+
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+  try {
+    console.log(id);
+    
+    let posts = await this.database.listDocuments(
+      conf.DATABASE_ID,
+      conf.USER,
+      queries
+    );
+
+    if (!posts) throw Error;
+console.log(posts);
+
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+ }
+ 
 }
 
 let authservice = new Auth();

@@ -202,3 +202,44 @@ export const useSearchPosts = (searchTerm: string) => {
       },
     });
   };
+
+  export const useGetInfinityUser = () => {
+    return useInfiniteQuery({
+      queryKey: [QUERY_KEYS.GET_INFINITE_USER],
+      queryFn: authservice.getInfiniteUser,
+      getNextPageParam: (lastPage ) => {
+       
+        if (lastPage && lastPage.documents.length === 0) {
+          return null;
+      }
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+      return lastId;
+  console.log(lastPage);
+  
+        
+      },
+    });
+  };
+
+
+  export const useGetInfinityUserSearch = (id:string) => {
+    return useInfiniteQuery({
+      queryKey: [QUERY_KEYS.GET_INFINITE_USER_SEARCH],
+      queryFn: ({ pageParam }) => {
+        console.log(pageParam);
+        
+        
+        return authservice.getInfiniteUserResult({id:id, pageParam:pageParam})},
+      getNextPageParam: (lastPage) => { 
+       
+      if (lastPage && lastPage.documents.length === 0) {
+          return null;
+      }
+      const lastId = lastPage?.documents[lastPage.documents.length - 1].$id;
+      console.log(lastId);
+      return lastId;
+  
+        
+      },
+    });
+  };
