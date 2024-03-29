@@ -112,7 +112,7 @@ export const useDeletePOst = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (savedRecordId) => authservice.deleteSavePost(savedRecordId),
+    mutationFn: (savedRecordId) => authservice.deleteSavePost(savedRecordId ),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_POST_BY_ID, data?.$id],

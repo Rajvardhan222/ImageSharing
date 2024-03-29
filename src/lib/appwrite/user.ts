@@ -1,6 +1,8 @@
 import conf from "@/conf/conf";
 import { INewPost, INewUser, IUpdatePost, IUser } from "@/types";
 import { Client,Account,Databases,Storage,Avatars, ID, Query } from "appwrite";
+import { Navigation } from "lucide-react";
+import { Navigate } from "react-router-dom";
 
 
 export class Auth  {
@@ -255,10 +257,11 @@ export class Auth  {
       try {
         const statusCode = await this.database.deleteDocument(
           conf.DATABASE_ID,
-          conf.SAVES,
+          conf.POSTS,
           savedRecordId
         )
         if(!statusCode) throw Error
+       
         return statusCode
        
       } catch (error) {

@@ -2,16 +2,17 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/AuthContext";
 import authservice from "@/lib/appwrite/user";
-import { useGetPostById } from "@/lib/react-query/queriesandMutations";
+import { useDeletePOst, useGetPostById } from "@/lib/react-query/queriesandMutations";
 import { multiFormatDateString } from "@/lib/utils";
 import Loader from "@/shared/Loader";
 import PostStats from "@/shared/PostStats";
 import { useEffect } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
 function PostDetails() {
   let { id } = useParams();
   let { data: post, isPending: isLoading } = useGetPostById(id || "");
+  let { data: deletePost, isPending: isDeleting } = useDeletePOst();
   const { user } = useUserContext();
   let downloadImage = async () => {
     console.log("Downloading image");
@@ -33,12 +34,19 @@ function PostDetails() {
       className:"z-10 bg-red-500"
     });
   }, []);
+console.log(post);
+let navigate = useNavigate()
 
+let handleDelete = (id) => {
+  authservice.deleteSavePost(id).then(()=>{
+    navigate('/')
+})
+}
   return (
     <div className="post_details-container">
       <div className="hidden md:flex max-w-5xl w-full lg:flex-col">
         <Button
-          onClick={() => Navigate(-1)}
+          
           variant="ghost"
           className="shad-button_ghost"
         >
@@ -113,6 +121,7 @@ function PostDetails() {
                   className={`ost_details-delete_btn ${
                     user.id !== post?.creator.$id && "hidden"
                   }`}
+                  onClick={()=>handleDelete(id)}
                 >
                   <img
                     src={"/assets/icons/delete.svg"}
