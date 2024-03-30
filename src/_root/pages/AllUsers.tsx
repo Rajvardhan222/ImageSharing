@@ -22,6 +22,9 @@ function AllUsers() {
     if (inView && !searchValue) {
       fetchNextPage();
     }
+    if (inView && searchValue) {
+      fetchSearchNextPage();
+    }
   }, [inView]);
 
   useEffect(() => {
@@ -82,7 +85,7 @@ function AllUsers() {
        <Loader2Icon className="animate-spin" size={50}/>
       </div>
     )}
-     {searchHasNextPage && searchValue &&  (
+     {searchHasNextPage &&   (
       <div  className="mt-10 mx-auto mb-10" ref={ref}>
        <Loader2Icon className="animate-spin" size={50}/>
       </div>

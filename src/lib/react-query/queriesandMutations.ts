@@ -224,7 +224,7 @@ export const useSearchPosts = (searchTerm: string) => {
 
   export const useGetInfinityUserSearch = (id:string) => {
     return useInfiniteQuery({
-      queryKey: [QUERY_KEYS.GET_INFINITE_USER_SEARCH],
+      queryKey: [QUERY_KEYS.GET_INFINITE_USER_SEARCH,id],
       queryFn: ({ pageParam }) => {
         console.log(pageParam);
         
