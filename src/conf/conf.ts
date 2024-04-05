@@ -6,6 +6,7 @@ const conf = {
     POSTS : String(import.meta.env.VITE_APPWRITE_POSTS_COLLECTION),
     USER :  String(import.meta.env.VITE_APPWRITE_USER_COLLECTION),
     BUCKET_ID: String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
+    FOLLOW: String(import.meta.env.VITE_APPWRITE_FOLLOW_COLLECTION)
    
 }
 export default conf

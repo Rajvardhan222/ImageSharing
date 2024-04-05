@@ -1,7 +1,7 @@
 import conf from "@/conf/conf";
 import { INewPost, INewUser, IUpdatePost, IUser } from "@/types";
 import { Client,Account,Databases,Storage,Avatars, ID, Query } from "appwrite";
-import { Navigation } from "lucide-react";
+import { Navigation, User } from "lucide-react";
 import { Navigate } from "react-router-dom";
 
 
@@ -228,11 +228,72 @@ export class Auth  {
                 if(!updatedPost) throw Error
                 return updatedPost
               } catch (error) {
-                // console.log(error);
+                console.log(error);
                 
               }
          }
+         async addMeFollowing(Userid:Array<string>,MyAccountId:string,prevFollowCnt:number){
+          try {
+           let incrementMEFollowing = await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
+              {
+                MeFollowingCnt : prevFollowCnt+1,
+                MeFollowing : Userid
+              }
+              )
+              if(!incrementMEFollowing) throw Error
+return incrementMEFollowing
+          } catch (error) {
+            console.log(error);
+            
+          }
+         }
+         async removeMeFollowing(Userid:Array<string>,MyAccountId:string,prevFollowCnt:number){
+          try {
+           let incrementMEFollowing =await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
+              {
+                MeFollowingCnt : prevFollowCnt-1,
+                MeFollowing : Userid
+              }
+              )
+              if(!incrementMEFollowing) throw Error
+return incrementMEFollowing
+          } catch (error) {
+            console.log(error);
+            
+          }
+         }
 
+         async addFollowers(Userid:Array<string>,MyAccountId:string,prevFollowCnt:number){
+          try {
+           let incrementMEFollowing = await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
+              {
+                FollowerCnt : prevFollowCnt+1,
+                follower : Userid
+              }
+              )
+              if(!incrementMEFollowing) throw Error
+return incrementMEFollowing
+          } catch (error) {
+            console.log(error);
+            
+          }
+         }
+
+         async removeFollowers(Userid:Array<string>,MyAccountId:string,prevFollowCnt:number){
+          try {
+           let incrementMEFollowing = await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
+              {
+                FollowerCnt : prevFollowCnt-1,
+                follower : Userid
+              }
+              )
+              if(!incrementMEFollowing) throw Error
+return incrementMEFollowing
+          } catch (error) {
+            console.log(error);
+            
+          }
+         }
          async savePost (postId:string,userId:string){
           try {
             const updatedPost = await this.database.createDocument(
