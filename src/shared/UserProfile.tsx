@@ -19,11 +19,12 @@ function UserProfile({ profile }) {
       return item!=ids
     })
     setMeFOllowing(removeMeFollow)
-    authservice.removeMeFollowing(meFollowing,mydetail.id,meFollowingCnt)
+    authservice.removeMeFollowing(removeMeFollow,mydetail.id,meFollowingCnt)
   } else {
+    
        setMeFOllowing([...meFollowing,ids])
-
-       authservice.addMeFollowing(meFollowing,mydetail.id,meFollowingCnt)
+       let newFollowerMe =[...meFollowing,ids]
+       authservice.addMeFollowing(newFollowerMe,mydetail.id,meFollowingCnt)
   }
 
   if(Follower.some(item=> item===mydetail.id)){
@@ -33,10 +34,11 @@ function UserProfile({ profile }) {
 
   SetFollower(removeFOllower)
 
-  authservice.removeFollowers(Follower,ids,FollowerCnt)
+  authservice.removeFollowers(removeFOllower,ids,FollowerCnt)
   }else{
     SetFollower([...Follower,mydetail.id])
-    authservice.addFollowers(Follower,ids,FollowerCnt)
+    let newFollower = [...Follower,mydetail.id]
+    authservice.addFollowers(newFollower,ids,FollowerCnt)
   }
  
   

@@ -18,18 +18,19 @@ function Profile() {
   
   return (
     <>
-      <div className="flex flex-col w-full overflow-scroll ml-10 mt-14">
-        <div className="flex ">
+      <div className="flex flex-col w-full overflow-scroll md:ml-10 mt-14 ">
+        <div className="flex-col flex items-center md:flex-row md:items-start">
           <div>
             <img
-              src="/assets/icons/profile-placeholder.svg"
-              className=" h-36 w-36 "
+              src={user?.imageUrl ||"/assets/icons/profile-placeholder.svg"}
+              className=" h-36 w-36 rounded-full"
             ></img>
           </div>
-          <div className="flex flex-col ml-7 gap-y-4">
-            <div className="flex justify-between min-w-26">
-              <h3 className=" font-semibold text-4xl ">User Name</h3>
-              <button className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2 cursor-pointer">
+          <div className="flex flex-col ml-0 md:ml-7 gap-y-4 md:gap-y-3">
+            <div className="flex md:justify-between min-w-26 justify-center mt-5 md:mt-0">
+              <h3 className=" font-semibold text-4xl ">{user?.name}</h3>
+              <div className="hidden md:inline-block">
+              <button className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2  cursor-pointer ">
                 <img
                   src="/assets/icons/edito.svg"
                   width={20}
@@ -39,9 +40,10 @@ function Profile() {
                 />
                 <p className="small-medium md:base-medium text-light-2">Edit</p>
               </button>
+              </div>
             </div>
-            <div className="text-[#7878A3] font-normal text-lg ">
-                @username
+            <div className="text-[#7878A3] font-normal text-lg   text-center md:text-start">
+                @{user?.userName}
             </div>
             <div className="flex gap-x-8">
               <div className="flex flex-col">
@@ -53,7 +55,7 @@ function Profile() {
                 </p>
 
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col justify-center items-center">
                 <p className="text-[#877EFF] text-xl text-center">
                   {user && user.FollowerCnt}
                 </p>
@@ -73,9 +75,18 @@ function Profile() {
               </div>
             </div>
             <div className="max-w-[50%]">
-            🌿 Capturing the essence of nature through my lens 
-✨ "In every walk with nature, one receives far more than he seeks." - John Muir
+            {user?.bio}
             </div>
+            <button className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2  cursor-pointer md:hidden">
+                <img
+                  src="/assets/icons/edito.svg"
+                  width={20}
+                  height={20}
+                  alt="filter"
+
+                />
+                <p className="small-medium md:base-medium text-light-2">Edit</p>
+              </button>
           </div>
         </div>
         <div className="flex justify-between mt-7  max-w-[90%] w-full ml-4 px-2">
