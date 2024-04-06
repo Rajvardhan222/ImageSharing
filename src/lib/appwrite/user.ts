@@ -522,7 +522,27 @@ console.log(posts);
     console.log(error);
   }
  }
- 
+ getInfinitePostsOfUserOnly=async({pageParam,id}: { pageParam: number,id:string })=>{
+  const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(6),Query.equal('creator',id)];
+
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+  try {
+    let posts = await this.database.listDocuments(
+      conf.DATABASE_ID,
+      conf.POSTS,
+      queries
+    );
+
+    if (!posts) throw Error;
+console.log(posts);
+
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+ }
 }
 
 let authservice = new Auth();

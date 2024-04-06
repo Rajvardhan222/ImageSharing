@@ -1,12 +1,15 @@
 import { useUserContext } from "@/context/AuthContext";
 import authservice from "@/lib/appwrite/user";
-import { useGetCurrentUser } from "@/lib/react-query/queriesandMutations";
+import { useGetCurrentUser, useGetUserPosts } from "@/lib/react-query/queriesandMutations";
+import GridPostList from "@/shared/GridPostList";
+import { Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 function Profile() {
   const { user:mydetail } = useUserContext();
   let {data:user} = useGetCurrentUser()
- 
+        let {data:userPost,fetchNextPage,hasNextPage} = useGetUserPosts(mydetail.id)
   useEffect(()=>{
     console.log(user);
   },[user])
@@ -14,8 +17,13 @@ function Profile() {
   
   
 
-
+console.log(userPost);
+const { ref, inView } = useInView();
   
+useEffect(() => {
+ if(inView) fetchNextPage()
+}, [inView])
+
   return (
     <>
       <div className="flex flex-col w-full overflow-scroll md:ml-10 mt-14 ">
@@ -105,6 +113,17 @@ function Profile() {
           />
         </div>
       </div>
+
+      <div className="w-full   grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-8 mt-8">
+          {
+            userPost?.pages.map((posts,index)=>{
+             return <GridPostList posts={posts.documents} showStats={false} showUser={false}/>
+            })
+          }
+      </div >
+         {hasNextPage && <div className="flex justify-center py-20" ref={ref}>
+            <Loader2 className="  animate-spin "/>
+          </div>}
       </div>
     </>
   );

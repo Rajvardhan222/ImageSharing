@@ -243,3 +243,21 @@ export const useSearchPosts = (searchTerm: string) => {
       },
     });
   };
+
+  export const useGetUserPosts = (id:string) => {
+    return useInfiniteQuery({
+      queryKey: [QUERY_KEYS.GET_USER_POSTS_UPLOADED],
+      queryFn: ({ pageParam }) => authservice.getInfinitePostsOfUserOnly({id:id, pageParam:pageParam}),
+      getNextPageParam: (lastPage ) => {
+       
+        if (lastPage && lastPage.documents.length === 0) {
+          return null;
+      }
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+      return lastId;
+  console.log(lastPage);
+  
+        
+      },
+    });
+  };

@@ -20,7 +20,7 @@ function GridPostList({
             <img
               src={post.imageURl}
               alt="post"
-              className="h-full w-full object-cover"
+              className="h-[100%] w-full object-cover"
             />
           </Link>
 
