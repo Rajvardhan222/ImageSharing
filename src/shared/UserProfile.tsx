@@ -2,8 +2,11 @@ import { useUserContext } from "@/context/AuthContext";
 import authservice from "@/lib/appwrite/user";
 import { useGetCurrentUser } from "@/lib/react-query/queriesandMutations";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Profilecard from "./Profilecard";
 
 function UserProfile({ profile }) {
+ 
     const { user:mydetail } = useUserContext();
     let {data:user} = useGetCurrentUser()
     let [meFollowing,setMeFOllowing] = useState(user?.MeFollowing)
@@ -12,38 +15,9 @@ function UserProfile({ profile }) {
     let [FollowerCnt,SetFollowerCnt] = useState(user?.FollowerCnt)
     // const [Follow, setFollow] = useState(user.following)
   console.log(profile);
-  let handleFollow = async (ids) => {
-          
-    if (meFollowing.some(item => item===ids)) {
-    let removeMeFollow = meFollowing.filter((item)=>{
-      return item!=ids
-    })
-    setMeFOllowing(removeMeFollow)
-    authservice.removeMeFollowing(removeMeFollow,mydetail.id,meFollowingCnt)
-  } else {
-    
-       setMeFOllowing([...meFollowing,ids])
-       let newFollowerMe =[...meFollowing,ids]
-       authservice.addMeFollowing(newFollowerMe,mydetail.id,meFollowingCnt)
-  }
-
-  if(Follower.some(item=> item===mydetail.id)){
-    let removeFOllower = Follower.filter((item)=>{
-      return item!==mydetail.id
-    })
-
-  SetFollower(removeFOllower)
-
-  authservice.removeFollowers(removeFOllower,ids,FollowerCnt)
-  }else{
-    SetFollower([...Follower,mydetail.id])
-    let newFollower = [...Follower,mydetail.id]
-    authservice.addFollowers(newFollower,ids,FollowerCnt)
-  }
- 
   
+  console.log(user);
   
-  }
 
 // useEffect(()=>{
 //     console.log(mydetail.id,Follow);
@@ -52,19 +26,7 @@ function UserProfile({ profile }) {
 // },[Follow])
   return profile?.map((users, index) => {
     return (
-      <div className=" flex flex-col justify-center items-center gap-y-4 px-10 py-12   w-64 " key={index}>
-        <img
-          src={users?.imageUrl||"assets/icons/profile-placeholder.svg"}
-          className="w-[96px] h-[96px] rounded-full"
-        ></img>
-        <h2 className="font-bold text-2xl">{users.name}</h2>
-        <p className="text-[#7878A3] font-medium text-lg ">@{users.userName}</p>
-        <button className="bg-[#877EFF] text-white px-5 py-3 w-28 h-10 font-semibold text-center text-sm rounded-md"
-        onClick={()=> handleFollow(users.$id)}
-        >
-         {meFollowing.some(item=>item===users.$id) ? "UnFollow":"Follow"}
-        </button>
-      </div>
+      <Profilecard users={users} key={index} meFollowing={meFollowing} setMeFOllowing={setMeFOllowing} meFollowingCnt={meFollowingCnt} FollowerCnt={FollowerCnt}/>
     );
   });
 }

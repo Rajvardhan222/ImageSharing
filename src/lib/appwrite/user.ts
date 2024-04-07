@@ -234,9 +234,11 @@ export class Auth  {
          }
          async addMeFollowing(Userid:Array<string>,MyAccountId:string,prevFollowCnt:number){
           try {
+            console.log('following +1 ',Userid,prevFollowCnt);
+            
            let incrementMEFollowing = await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
               {
-                MeFollowingCnt : prevFollowCnt+1,
+                MeFollowingCnt : Number(prevFollowCnt+1),
                 MeFollowing : Userid
               }
               )
@@ -251,7 +253,7 @@ return incrementMEFollowing
           try {
            let incrementMEFollowing =await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
               {
-                MeFollowingCnt : prevFollowCnt-1,
+                MeFollowingCnt : prevFollowCnt--,
                 MeFollowing : Userid
               }
               )
@@ -265,9 +267,13 @@ return incrementMEFollowing
 
          async addFollowers(Userid:Array<string>,MyAccountId:string,prevFollowCnt:number){
           try {
+            console.log('adding User to DB');
+            
+            console.log(Userid);
+            
            let incrementMEFollowing = await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
               {
-                FollowerCnt : prevFollowCnt+1,
+                FollowerCnt : Number(prevFollowCnt+1),
                 follower : Userid
               }
               )
@@ -283,7 +289,7 @@ return incrementMEFollowing
           try {
            let incrementMEFollowing = await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
               {
-                FollowerCnt : prevFollowCnt-1,
+                FollowerCnt : Number(prevFollowCnt-1),
                 follower : Userid
               }
               )
@@ -542,6 +548,22 @@ console.log(posts);
   } catch (error) {
     console.log(error);
   }
+ }
+
+ async getUserById(id:string){
+      try {
+       let userdetail = await this.database.getDocument(
+          conf.DATABASE_ID,
+          conf.USER,
+          id
+        )
+        console.log(userdetail);
+        
+        return userdetail
+      } catch (error) {
+        console.log(error);
+        
+      }
  }
 }
 

@@ -261,3 +261,67 @@ export const useSearchPosts = (searchTerm: string) => {
       },
     });
   };
+
+  export const useGetUserById = (id:string) => {
+    return useQuery({
+      queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
+      queryFn: () => authservice.getUserById(id),
+    });
+  };
+
+  export const useUpdatePostFollowing = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationFn: ({removeMeFollow,
+        mydetail,
+        meFollowingCnt}) => authservice.removeMeFollowing(removeMeFollow,
+          mydetail,
+          meFollowingCnt),
+          onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
+        })}
+
+    });
+  };
+
+  export const useUpdatePostMeFollowing = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationFn: ( { newFollowerMe,
+        mydetail,
+        meFollowingCnt}) => authservice.addMeFollowing(  newFollowerMe,
+          mydetail,
+          meFollowingCnt),
+onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
+        })}
+    });
+  };
+
+  export const useUpdateRemoveFollower = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationFn: ({newFollower,ids,FollowerCnt}) => authservice.removeFollowers(newFollower,ids,FollowerCnt),
+onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
+        })}
+    });
+  };
+
+  export const useUpdateAddFollower = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationFn: ({newFollower,ids,FollowerCnt}) => authservice.addFollowers(newFollower,ids,FollowerCnt),
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
+        })}
+    });
+  };
