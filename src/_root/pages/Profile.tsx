@@ -135,6 +135,7 @@ function Profile() {
               </div>
             </div>
             <div className="max-w-[50%]">{uniqueUser?.bio}</div>
+            <Link to={`/update-profile/${id}`}>
             <button className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2  cursor-pointer md:hidden">
               <img
                 src="/assets/icons/edito.svg"
@@ -143,7 +144,7 @@ function Profile() {
                 alt="filter"
               />
               <p className="small-medium md:base-medium text-light-2">Edit</p>
-            </button>
+            </button></Link>
           </div>
         </div>
         <div className="flex justify-between mt-7  max-w-[90%] w-full ml-4 px-2">
