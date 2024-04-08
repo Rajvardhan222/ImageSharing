@@ -24,9 +24,23 @@ export class Auth  {
      
     }
 
-
+async isUserThere(name){
+  try {
+   let user = await this.database.listDocuments(
+      conf.DATABASE_ID,
+      conf.USER,
+      [Query.equal('userName',name)]
+    )
+    return user
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
         async createNewAccount(user:INewUser){
           try {
+            
+
          let newAccount = await this.account.create(ID.unique(),
            user.email,
            user.password,

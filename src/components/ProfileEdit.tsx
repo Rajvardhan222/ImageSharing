@@ -41,7 +41,7 @@ function ProfileEdit() {
       const [fileUrl, setFileUrl] = useState('')
   return(
     showDialog ? <>
-    <div className='md:w-2/4 h-[30rem] bg-slate-900 rounded-2xl absolute md:top-[20%] md:left-[30%] z-50 border-white flex p-7 items-center gap-7 md:flex-row md:flex flex-col w-[90%] m-auto top-[30%] background'>
+    <div className='md:w-2/4 md:h-[30rem] md:min-h-[30rem] min-h-[40rem]  bg-slate-900 rounded-2xl fixed  md:top-[20%] md:left-[30%] z-50 border-white flex p-7 items-center gap-7 md:flex-row md:flex flex-col w-[90%] m-auto top-[0%] background'>
         
         <img src={fileUrl||user.imageUrl} className='rounded-full w-48 h-48'>
         </img>

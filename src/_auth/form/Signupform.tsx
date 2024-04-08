@@ -21,6 +21,7 @@ import Loader from "@/shared/Loader";
 
 import { useCreateUserAccountMutation, useSignInUserAccountMutation } from "@/lib/react-query/queriesandMutations";
 import { useUserContext } from "@/context/AuthContext";
+import authservice from "@/lib/appwrite/user";
 
 
 function Signupform() {
@@ -46,8 +47,14 @@ function Signupform() {
   async function  onSubmit(values: z.infer<typeof signUpSchema>) {
         let newUser = await createNewUserAccount(values)
     console.log(error);
+           let isthere = await authservice.isUserThere(values.username)
+           console.log(isthere);
+           
+           if(isthere?.total === 0){
+            console.log('creating User...');
             
           if(!newUser){
+
            return toast({
               title: "Account creation failed . Please try again"
             })
@@ -68,9 +75,13 @@ function Signupform() {
           else{
             return toast({
               title: "Account creation failed during loging in. Please try again "
-            })
-          }
-   
+            })}
+          }else{
+            return toast({
+              title: "A User With ID Already Exist "
+            })}
+          
+        
   }
   return (
     <Form {...form}>
