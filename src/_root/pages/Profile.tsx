@@ -27,8 +27,8 @@ function Profile() {
   let [FollowerCnt, SetFollowerCnt] = useState(user?.FollowerCnt);
   const { mutate: removeFollowing } = useUpdatePostFollowing();
   const { mutate: addFollowing } = useUpdatePostMeFollowing();
-  const { mutate: followingadd } = useUpdateRemoveFollower();
-  const { mutate: followingRemove } = useUpdateAddFollower();
+  const { mutate: followingadd } = useUpdateAddFollower();
+  const { mutate: followingRemove } = useUpdateRemoveFollower();
   const handleFOllow = async (ids) => {
     if (meFollowing.some(item => item === ids)) {
       // Unfollow action

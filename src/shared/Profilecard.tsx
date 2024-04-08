@@ -8,7 +8,9 @@ function Profilecard({users,meFollowing,setMeFOllowing:setMeFollowing,FollowerCn
     const { user:mydetail } = useUserContext();
     let {data:user} = useGetCurrentUser()
     let { data: uniqueUser } = useGetUserById(users.$id);
-    let [Follower,setFollower] = useState(uniqueUser?.follower)
+    let [Follower,setFollower] = useState(users?.follower)
+    
+    
     const handleFollow = async (ids) => {
         try {
             console.log(meFollowing);
