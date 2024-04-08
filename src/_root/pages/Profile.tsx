@@ -82,7 +82,7 @@ function Profile() {
               className=" h-36 w-36 rounded-full"
             ></img>
           </div>
-          <div className="flex flex-col ml-0 md:ml-7 gap-y-4 md:gap-y-3">
+          <div className="flex flex-col ml-0  items-center md:ml-7 gap-y-4 md:gap-y-3">
             <div className="flex md:justify-between min-w-26 justify-center mt-5 md:mt-0">
               <h3 className=" font-semibold text-4xl ">{uniqueUser?.name}</h3>
               {mydetail.id === uniqueUser?.$id ? (
@@ -134,7 +134,7 @@ function Profile() {
                 <p>Following</p>
               </div>
             </div>
-            <div className="max-w-[50%]">{uniqueUser?.bio}</div>
+            <div className="md:max-w-[50%] max-w-[90%]">{uniqueUser?.bio}</div>
             <Link to={`/update-profile/${id}`}>
             <button className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2  cursor-pointer md:hidden">
               <img
@@ -148,7 +148,7 @@ function Profile() {
           </div>
         </div>
         <div className="flex justify-between mt-7  max-w-[90%] w-full ml-4 px-2">
-          <div className="flex  mt-3 gap-2 w-96">
+          <div className="flex  mt-3 gap-2 w-96 ">
             <img src="/assets/icons/posts.svg" className=" fill-white "></img>
             <p className="  font-bold ">Posts</p>
           </div>
