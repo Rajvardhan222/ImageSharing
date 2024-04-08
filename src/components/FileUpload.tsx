@@ -2,10 +2,10 @@ import React, {useCallback, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
 import { Button } from './ui/button'
 
-function FileUpload({fieldChange,mediaUrl}) {
+function FileUpload({fieldChange,mediaUrl,fileUrl,setFileUrl}) {
     const [file, setFile] = useState([])
 
-    const [fileUrl, setFileUrl] = useState(mediaUrl)
+    
     const onDrop = useCallback(acceptedFiles => {
         setFile(acceptedFiles)
         fieldChange(acceptedFiles)
@@ -18,19 +18,10 @@ function FileUpload({fieldChange,mediaUrl}) {
         }
     })
   return (
-    <div {...getRootProps()} className='flex flex-center flex-col bg-dark-3 rounded-xl cursor-pointer'>
+    <div {...getRootProps()} className=' max-h-72 flex flex-center flex-col bg-dark-3 rounded-xl cursor-pointer'>
     <input {...getInputProps()} className='cursor-pointer '/>
     {
-      fileUrl ? (<div className='flex flex-1 justify-center w-full p-5 lg:p-10'>
-
-            <img
-            src={fileUrl}
-            alt='image'
-            className='file_uploader-img'
-            >
-            
-            </img>
-      </div>):
+     
        (<div className='file_uploader-box'>
                 <img 
                 src='/assets/icons/file-upload.svg'

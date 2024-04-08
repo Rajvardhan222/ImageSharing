@@ -14,7 +14,7 @@ import GridPostList from "@/shared/GridPostList";
 import { Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function Profile() {
   const { user: mydetail } = useUserContext();
@@ -87,7 +87,8 @@ function Profile() {
               <h3 className=" font-semibold text-4xl ">{uniqueUser?.name}</h3>
               {mydetail.id === uniqueUser?.$id ? (
                 <div className="hidden md:inline-block">
-                  <button className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2  cursor-pointer ">
+                  <Link to={`/update-profile/${id}`}>
+                  <button className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2  cursor-pointer " >
                     <img
                       src="/assets/icons/edito.svg"
                       width={20}
@@ -97,7 +98,7 @@ function Profile() {
                     <p className="small-medium md:base-medium text-light-2">
                       Edit
                     </p>
-                  </button>
+                  </button></Link>
                 </div>
               ) : (
                 <div className="hidden md:inline-block ">

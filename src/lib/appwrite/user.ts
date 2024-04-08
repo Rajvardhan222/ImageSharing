@@ -175,14 +175,14 @@ export class Auth  {
           }
          }
 
-          getFilePreview(fileId : string){
+          getFilePreview(fileId : string,quality=50){
           try {
             const fileUrl =  this.storage.getFilePreview(conf.BUCKET_ID,
               fileId,
               2000,
               2000,
               'top',
-              50
+              quality
               )
               return fileUrl
           } catch (error) {
@@ -560,6 +560,50 @@ console.log(posts);
         console.log(userdetail);
         
         return userdetail
+      } catch (error) {
+        console.log(error);
+        
+      }
+ }
+
+ async updateUser({id,name,userName,email,bio}){
+   try {
+   let updateProfile = await this.database.updateDocument(
+      conf.DATABASE_ID,
+      conf.USER,
+      id,{
+        name:name,
+        
+        bio:bio
+      }
+    )
+    if(!updateProfile)throw Error
+    return updateProfile
+   } catch (error) {
+    console.log(error);
+    
+   }
+
+  
+ }
+ async updateProfilePic(file,id){
+      try {
+        console.log(file);
+        
+       let uploadFile = await this.storage.createFile(conf.BUCKET_ID,ID.unique(),file)
+
+       if(uploadFile){
+      let preview = await  this.getFilePreview(uploadFile?.$id,10)
+          return await this.database.updateDocument(
+              conf.DATABASE_ID,
+              conf.USER,
+              id,
+             { imageUrl:preview}
+            )
+       }
+       
+
+
       } catch (error) {
         console.log(error);
         

@@ -10,6 +10,7 @@ export const signUpSchema = z.object({
    
   })
 
+
   export const signinSchema = z.object({
    
     email: z.string().email(),
@@ -23,5 +24,22 @@ export const signUpSchema = z.object({
     file:z.custom<File[]>(),
     location : z.string().min(2).max(100),
     tags:z.string()
+   
+  })
+
+  export const profileUpdateSchema = z.object({
+    name : z.string().min(2,{message: "Name must be at least 2 characters"}),
+
+    username: z.string().min(2).max(50),
+    email: z.string().email(),
+    bio: z.string().min(0)
+   
+  })
+
+  export const formss = z.object({
+   
+    
+    file:z.custom<File[]>(),
+    
    
   })
