@@ -264,7 +264,7 @@ export const useSearchPosts = (searchTerm: string) => {
 
   export const useGetUserById = (id:string) => {
     return useQuery({
-      queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
+      queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID,id],
       queryFn: () => authservice.getUserById(id),
     });
   };
@@ -279,9 +279,16 @@ export const useSearchPosts = (searchTerm: string) => {
           mydetail,
           meFollowingCnt),
           onSuccess: (data) => {
-        queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
-        })}
+            queryClient.invalidateQueries({
+              queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID,data.$id],
+              
+            })
+          
+            queryClient.invalidateQueries({
+              queryKey: [QUERY_KEYS.GET_INFINITE_USER],
+            });
+          
+          }
 
     });
   };
@@ -295,10 +302,17 @@ export const useSearchPosts = (searchTerm: string) => {
         meFollowingCnt}) => authservice.addMeFollowing(  newFollowerMe,
           mydetail,
           meFollowingCnt),
-onSuccess: (data) => {
-        queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
-        })}
+          onSuccess: (data) => {
+            queryClient.invalidateQueries({
+              queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID,data.$id],
+              
+            })
+          
+            queryClient.invalidateQueries({
+              queryKey: [QUERY_KEYS.GET_INFINITE_USER],
+            });
+          
+          }
     });
   };
 
@@ -307,10 +321,17 @@ onSuccess: (data) => {
   
     return useMutation({
       mutationFn: ({newFollower,ids,FollowerCnt}) => authservice.removeFollowers(newFollower,ids,FollowerCnt),
-onSuccess: (data) => {
+      onSuccess: (data) => {
         queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
-        })}
+          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID,data.$id],
+          
+        })
+      
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_INFINITE_USER],
+        });
+      
+      }
     });
   };
 
@@ -320,8 +341,20 @@ onSuccess: (data) => {
     return useMutation({
       mutationFn: ({newFollower,ids,FollowerCnt}) => authservice.addFollowers(newFollower,ids,FollowerCnt),
       onSuccess: (data) => {
+        console.log(data);
+        
         queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID],
-        })}
+          queryKey: [QUERY_KEYS.GET_CURRENT_USER_BY_ID,data.$id],
+          
+        })
+      
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_INFINITE_USER],
+        });
+      
+      }
+      
+          
+       
     });
   };

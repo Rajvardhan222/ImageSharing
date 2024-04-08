@@ -11,7 +11,9 @@ export const InitialUser = {
     password : '',
     username : '',
     imageUrl : '',
-    bio : ''
+    bio : '',
+    follower : [],
+    MeFollowing : []
 }
 
 const Initial_State = {
@@ -45,7 +47,9 @@ let checkAuthUser =async  () =>{
                
                 username : currentUser.userName,
                 imageUrl : currentUser.imageUrl,
-                bio : currentUser.bio
+                bio : currentUser.bio,
+                follower : currentUser.follower,
+                MeFollowing:currentUser.MeFollowing
             })
             setIsAuthenticated(true)
 
