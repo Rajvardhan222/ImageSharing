@@ -45,12 +45,13 @@ function Signupform() {
     let navigate = useNavigate()
   // 2. Define a submit handler.
   async function  onSubmit(values: z.infer<typeof signUpSchema>) {
-        let newUser = await createNewUserAccount(values)
-    console.log(error);
+      
            let isthere = await authservice.isUserThere(values.username)
            console.log(isthere);
            
            if(isthere?.total === 0){
+            let newUser = await createNewUserAccount(values)
+            console.log(error);
             console.log('creating User...');
             
           if(!newUser){
