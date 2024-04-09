@@ -43,9 +43,10 @@ function Signupform() {
     },
   });
     let navigate = useNavigate()
+    let [errorss,setError] = useState('')
   // 2. Define a submit handler.
   async function  onSubmit(values: z.infer<typeof signUpSchema>) {
-      
+      setError('')
            let isthere = await authservice.isUserThere(values.username)
            console.log(isthere);
            
@@ -78,9 +79,11 @@ function Signupform() {
               title: "Account creation failed during loging in. Please try again "
             })}
           }else{
+            setError('A User with Same UserName is Already regestered')
             return toast({
               title: "A User With ID Already Exist "
-            })}
+            })
+          }
           
         
   }
@@ -95,7 +98,9 @@ function Signupform() {
         <p className="text-light-3 small-medium md:base-regular">
           TO use smapgram enter your detail
         </p>
-        {error && <p className="text-red max-w-[95%] md:max-w-full text-center">{error}</p>}
+        {error && <p className="text-red max-w-[95%] md:max-w-full text-center">{error}</p>
+        }
+         {errorss.length>0 && <p className="text-red max-w-[95%] md:max-w-full text-center">{errorss}</p>}
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className=" flex flex-col gap-5 w-full mt-4"
