@@ -48,12 +48,12 @@ function Signupform() {
   async function  onSubmit(values: z.infer<typeof signUpSchema>) {
       setError('')
            let isthere = await authservice.isUserThere(values.username)
-           console.log(isthere);
+           //isthere);
            
            if(isthere?.total === 0){
             let newUser = await createNewUserAccount(values)
-            console.log(error);
-            console.log('creating User...');
+            //error);
+            //'creating User...');
             
           if(!newUser){
 

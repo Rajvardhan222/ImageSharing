@@ -14,7 +14,7 @@ function Saved() {
     isFetching,isPending,
     fetchNextPage,
   } = useGetSavedPosts(user.id);
-  console.log(savedPost);
+  //savedPost);
   const shouldShowPosts = savedPost?.pages.every((item) => item?.documents.length === 0);
   useEffect(() => {
     if (inView) {

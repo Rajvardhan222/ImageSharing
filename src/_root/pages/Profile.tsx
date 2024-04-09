@@ -39,7 +39,7 @@ function Profile() {
       // Follow action
       setMeFOllowing(prevMeFollowing => [...prevMeFollowing, ids]);
       const newFollowerMe = [...meFollowing, ids];
-      console.log(newFollowerMe);
+      //newFollowerMe);
       
       addFollowing({ newFollowerMe:newFollowerMe, mydetail: mydetail.id, meFollowingCnt:meFollowingCnt });
     }
@@ -63,7 +63,7 @@ function Profile() {
     hasNextPage,
   } = useGetUserPosts(uniqueUser?.$id);
 
-  console.log(userPost);
+  //userPost);
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -82,7 +82,7 @@ function Profile() {
               className=" h-36 w-36 rounded-full"
             ></img>
           </div>
-          <div className="flex flex-col ml-0  items-center md:ml-7 gap-y-4 md:gap-y-3">
+          <div className="flex flex-col ml-0  items-center md:ml-7 md:items-start gap-y-4 md:gap-y-3">
             <div className="flex md:justify-between min-w-26 justify-center mt-5 md:mt-0">
               <h3 className=" font-semibold text-4xl ">{uniqueUser?.name}</h3>
               {mydetail.id === uniqueUser?.$id ? (
@@ -103,7 +103,7 @@ function Profile() {
               ) : (
                 <div className="hidden md:inline-block ">
                   <Button
-                    className="bg-blue-400 hover:bg-blue-500"
+                    className="bg-blue-400 hover:bg-blue-500 ml-5"
                     onClick={() => handleFOllow(id)}
                   >
                   {meFollowing.some(item=>item===id) ? "UnFollow":"Follow"}

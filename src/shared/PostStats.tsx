@@ -10,67 +10,63 @@ import React, { useContext, useEffect, useState } from "react";
 import Loader from "./Loader";
 
 function PostStats({ post, userId }) {
-  const  {data:currentUser} = useGetCurrentUser();
+  const { data: currentUser } = useGetCurrentUser();
   const likeslist = post.likes.map((user) => user.$id);
-  const SaveList = post.save.map((user) => user.$id)
+  const SaveList = post.save.map((user) => user.$id);
 
   const [likes, setLikes] = useState(likeslist);
-  const [save, setSave] = useState(false)
+  const [save, setSave] = useState(false);
   const { mutate: likePost } = useLikePost();
-  const { mutate: SavePost ,isPending : isSaving} = useSavePost();
-  const { mutate: deleteSavePost ,isPending : isdeleting} = useDeletePOst();
+  const { mutate: SavePost, isPending: isSaving } = useSavePost();
+  const { mutate: deleteSavePost, isPending: isdeleting } = useDeletePOst();
 
-  
   let handlelike = () => {
-    
     if (likes.includes(userId)) {
       setLikes(likes.filter((id) => id !== userId));
     } else {
       setLikes([...likes, userId]);
     }
-  
   };
 
+  let handleSave = async () => {
+    //currentUser);
 
-  let handleSave = async() => {
-    
-    console.log(currentUser);
-    
-   let  savePostRecord = currentUser?.saves.find(record => record.posts.$id === post.$id )
-   
-   console.log(savePostRecord);
-   
-    if(!!savePostRecord){
-      setSave(false)
-       deleteSavePost(savePostRecord.$id);
-       
-    }else{
-      SavePost({postId:post.$id,UserId:userId});
+    let savePostRecord = currentUser?.saves.find(
+      (record) => record.posts.$id === post.$id
+    );
+
+    //savePostRecord);
+
+    if (!!savePostRecord) {
+      setSave(false);
+      deleteSavePost(savePostRecord.$id);
+    } else {
+      SavePost({ postId: post.$id, UserId: userId });
       setSave(true);
     }
-  
   };
 
-  useEffect(()=>{
-    let  savePostRecord = currentUser?.saves.find(record => (record.posts.$id === post.$id
-      ) )
-    console.log(savePostRecord);
-    
-    if(!!savePostRecord){
-      setSave(true)
+  useEffect(() => {
+    let savePostRecord = currentUser?.saves.find(
+      (record) => record.posts.$id === post.$id
+    );
+    //savePostRecord);
+
+    if (!!savePostRecord) {
+      setSave(true);
     }
-  },[SavePost,currentUser])
+  }, [SavePost, currentUser]);
 
   let checkIsLiked = (like, id) => {
-    console.log('entered');
-    
+    //"entered");
+
     if (like.includes(id)) {
-        console.log(like);
-        
+      //like);
+
       return true;
     } else {
-        console.log('false');
-        
+      //"false");
+
       return false;
     }
   };
@@ -83,48 +79,48 @@ function PostStats({ post, userId }) {
     likePost({ postId: post.$id, likesArray: likes });
   }, [likes]);
 
-  
-
   // useEffect(() => {
   //   SavePost({ postId: post.$id, UserId: userId });
-  //   console.log(save);
-    
+  //   //save);
+
   // }, [save]);
 
   return (
     <div className="flex justify-between items-center z-20">
       <div className="flex gap-2 mr-5">
-        
-          <img
-            src={`${
-              checkIsLiked(likes, userId)
-                ? "/assets/icons/liked.svg"
-                : "/assets/icons/like.svg"
-            }`}
-            alt="like"
-            width={20}
-            height={20}
-            onClick={() => handlelike()}
-            className="cursor-pointer"
-          />
-        
+        <img
+          src={`${
+            checkIsLiked(likes, userId)
+              ? "/assets/icons/liked.svg"
+              : "/assets/icons/like.svg"
+          }`}
+          alt="like"
+          width={20}
+          height={20}
+          onClick={() => handlelike()}
+          className="cursor-pointer"
+        />
 
         <p className="small-medium lg:base-medium">{likes.length}</p>
       </div>
 
       <div className="flex gap-2 ">
-       {isSaving || isdeleting ? <Loader/> : <img
-          src={`${
-            save
-              ? "/assets/icons/saved.svg"
-              : "/assets/icons/save.svg"
-          }`}
-          alt="like"
-          width={20}
-          height={20}
-          onClick={() => {handleSave()}}
-          className="cursor-pointer"
-        ></img>}
+        {isSaving || isdeleting ? (
+          <Loader />
+        ) : (
+          <img
+            src={`${
+              save ? "/assets/icons/saved.svg" : "/assets/icons/save.svg"
+            }`}
+            alt="like"
+            width={20}
+            height={20}
+            onClick={() => {
+              handleSave();
+            }}
+            className="cursor-pointer"
+          ></img>
+        )}
       </div>
     </div>
   );

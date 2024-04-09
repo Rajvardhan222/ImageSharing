@@ -34,9 +34,9 @@ function UpdateProfile() {
   });
 
   async function  onSubmit(values: z.infer<typeof profileUpdateSchema>) {
-       console.log(values);
+       //values);
       let updateProfile = await authservice.updateUser({...values,id})
-      console.log(updateProfile);
+      //updateProfile);
       
    
   }

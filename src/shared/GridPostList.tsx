@@ -10,7 +10,7 @@ function GridPostList({
   }) {
 
     const { user } = useUserContext();
-    console.log(posts);
+    //posts);
     
   return (
     <ul className="grid-container">

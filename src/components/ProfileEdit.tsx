@@ -31,7 +31,7 @@ function ProfileEdit() {
         },
       });
       async function onSubmit(values: z.infer<typeof formss>) {
-            console.log({values});
+            //{values});
             if(fileUrl){
               let updatePic = await  authservice.updateProfilePic(values.file[0],id)
               if(updatePic)setShowDialog(false)

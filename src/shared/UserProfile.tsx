@@ -6,27 +6,32 @@ import { Link } from "react-router-dom";
 import Profilecard from "./Profilecard";
 
 function UserProfile({ profile }) {
- 
-    const { user:mydetail } = useUserContext();
-    let {data:user} = useGetCurrentUser()
-    let [meFollowing,setMeFOllowing] = useState(user?.MeFollowing)
-    let [meFollowingCnt,setMeFOllowingCnt] = useState(user?.MeFollowingCnt)
-    let [Follower,SetFollower] = useState(user?.follower)
-    let [FollowerCnt,SetFollowerCnt] = useState(user?.FollowerCnt)
-    // const [Follow, setFollow] = useState(user.following)
-  console.log(profile);
-  
-  console.log(user);
-  
+  const { user: mydetail } = useUserContext();
+  let { data: user } = useGetCurrentUser();
+  let [meFollowing, setMeFOllowing] = useState(user?.MeFollowing);
+  let [meFollowingCnt, setMeFOllowingCnt] = useState(user?.MeFollowingCnt);
+  let [Follower, SetFollower] = useState(user?.follower);
+  let [FollowerCnt, SetFollowerCnt] = useState(user?.FollowerCnt);
+  // const [Follow, setFollow] = useState(user.following)
+  //profile);
 
-// useEffect(()=>{
-//     console.log(mydetail.id,Follow);
-    
-//     authservice.FollowUser(mydetail.id,Follow)
-// },[Follow])
+  //user);
+
+  // useEffect(()=>{
+  //     //mydetail.id,Follow);
+
+  //     authservice.FollowUser(mydetail.id,Follow)
+  // },[Follow])
   return profile?.map((users, index) => {
     return (
-      <Profilecard users={users} key={index} meFollowing={meFollowing} setMeFOllowing={setMeFOllowing} meFollowingCnt={meFollowingCnt} FollowerCnt={FollowerCnt}/>
+      <Profilecard
+        users={users}
+        key={index}
+        meFollowing={meFollowing}
+        setMeFOllowing={setMeFOllowing}
+        meFollowingCnt={meFollowingCnt}
+        FollowerCnt={FollowerCnt}
+      />
     );
   });
 }

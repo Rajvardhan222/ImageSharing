@@ -16,7 +16,7 @@ let navigate = useNavigate();
     threshold:0,
   });
   const {data:posts,isPending:isPostLoading,isError:isPostError,hasNextPage,fetchNextPage} = useGetRecentPosts()
-  console.log(posts);
+  //posts);
   useEffect(() => {
     if (inView ) {
       fetchNextPage();

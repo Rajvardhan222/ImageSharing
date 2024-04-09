@@ -31,7 +31,7 @@ function Explore() {
   const shouldShowSearchResults = searchValue !== "";
   const shouldShowPosts = !shouldShowSearchResults && 
     posts?.pages.every((item) => item?.documents.length === 0);
-console.log(posts);
+//posts);
 useEffect(() => {
   if (inView && !searchValue) {
     fetchNextPage();

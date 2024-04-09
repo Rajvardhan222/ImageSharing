@@ -15,10 +15,10 @@ function PostDetails() {
   let { data: deletePost, isPending: isDeleting } = useDeletePOst();
   const { user } = useUserContext();
   let downloadImage = async () => {
-    console.log("Downloading image");
+    //"Downloading image");
 
     let result = await authservice.downloadImage(post?.imageid);
-    console.log(result);
+    //result);
     const link = document.createElement("a");
     link.href = result.href;
     link.download = "image.jpg"; // Set the filename for the downloaded image
@@ -34,7 +34,7 @@ function PostDetails() {
       className:"z-10 bg-red-500"
     });
   }, []);
-console.log(post);
+//post);
 let navigate = useNavigate()
 
 let handleDelete = (id) => {

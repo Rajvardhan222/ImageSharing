@@ -17,7 +17,7 @@ function LeftSideBar() {
   }, [isSuccess]);
 
   let { user } = useUserContext();
-  console.log(user);
+  //user);
   return (
     <nav className="leftsidebar">
       <div className="flex flex-col gap-11">

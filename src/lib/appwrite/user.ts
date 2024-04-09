@@ -33,7 +33,7 @@ async isUserThere(name){
     )
     return user
   } catch (error) {
-    console.log(error);
+    //error);
     
   }
 }
@@ -62,7 +62,7 @@ async isUserThere(name){
            })
            return newUser
           } catch (error) {
-            console.log(error.message);
+            //error.message);
            throw error.message
             
           }
@@ -77,7 +77,7 @@ async isUserThere(name){
                 user
               )
             } catch (error) {
-              console.log(error);
+              //error);
               
             }
 
@@ -88,7 +88,7 @@ async isUserThere(name){
           try {
             return await this.account.createEmailSession(user.email, user.password)
           } catch (error) {
-            console.log(error);
+            //error);
             throw error;
           }
         }
@@ -108,7 +108,7 @@ async isUserThere(name){
             if(!currentUser) throw Error
             return currentUser.documents[0]
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
@@ -117,7 +117,7 @@ async isUserThere(name){
           try {
             return await this.account.deleteSession('current')
           } catch (error) {
-            console.log(error);
+            //error);
             throw error.message
           }
          }
@@ -128,7 +128,7 @@ async isUserThere(name){
               if(!uploadedFile) throw Error
 
               const fileUrl = await this.getFilePreview(uploadedFile.$id)
-              console.log(fileUrl);
+              //fileUrl);
               
 
               if(!fileUrl) {
@@ -151,7 +151,7 @@ async isUserThere(name){
                   }
                   
                 )
-                    console.log(post.userId);
+                    //post.userId);
                     
                 if(!newPost){
                   await this.deleteFile(uploadedFile.$id)
@@ -161,7 +161,7 @@ async isUserThere(name){
                 return newPost
 
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
@@ -171,7 +171,7 @@ async isUserThere(name){
             await this.storage.deleteFile(conf.BUCKET_ID, id)
             return {status : 'OK'}
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
@@ -184,7 +184,7 @@ async isUserThere(name){
             )
             return uploadedFile
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
@@ -200,7 +200,7 @@ async isUserThere(name){
               )
               return fileUrl
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
@@ -218,18 +218,18 @@ async isUserThere(name){
 
               )
               if (!posts) throw Error
-              console.log(posts);
+              //posts);
               
               return posts
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
 
          async likePost (postId:string,likesArray:string){
               try {
-                console.log(likesArray);
+                //likesArray);
                 
                 const updatedPost = await this.database.updateDocument(
                   conf.DATABASE_ID,
@@ -242,13 +242,13 @@ async isUserThere(name){
                 if(!updatedPost) throw Error
                 return updatedPost
               } catch (error) {
-                console.log(error);
+                //error);
                 
               }
          }
          async addMeFollowing(Userid:Array<string>,MyAccountId:string,prevFollowCnt:number){
           try {
-            console.log('following +1 ',Userid,prevFollowCnt);
+            //'following +1 ',Userid,prevFollowCnt);
             
            let incrementMEFollowing = await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
               {
@@ -259,7 +259,7 @@ async isUserThere(name){
               if(!incrementMEFollowing) throw Error
 return incrementMEFollowing
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
@@ -274,16 +274,16 @@ return incrementMEFollowing
               if(!incrementMEFollowing) throw Error
 return incrementMEFollowing
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
 
          async addFollowers(Userid:Array<string>,MyAccountId:string,prevFollowCnt:number){
           try {
-            console.log('adding User to DB');
+            //'adding User to DB');
             
-            console.log(Userid);
+            //Userid);
             
            let incrementMEFollowing = await this.database.updateDocument(conf.DATABASE_ID,conf.USER,MyAccountId,
               {
@@ -294,7 +294,7 @@ return incrementMEFollowing
               if(!incrementMEFollowing) throw Error
 return incrementMEFollowing
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
@@ -310,7 +310,7 @@ return incrementMEFollowing
               if(!incrementMEFollowing) throw Error
 return incrementMEFollowing
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
          }
@@ -328,7 +328,7 @@ return incrementMEFollowing
             if(!updatedPost) throw Error
             return updatedPost
           } catch (error) {
-            console.log(error);
+            //error);
             
           }
      }
@@ -346,7 +346,7 @@ return incrementMEFollowing
         return statusCode
        
       } catch (error) {
-        console.log(error);
+        //error);
         
       }
  }
@@ -357,11 +357,11 @@ return incrementMEFollowing
           conf.POSTS,
           postId
         )
-        console.log(post);
+        //post);
         
         return post;
       } catch (error) {
-        console.log(error);
+        //error);
         
       }
  }
@@ -379,7 +379,7 @@ return incrementMEFollowing
         if(!uploadedFile) throw Error
   
         const fileUrl = await this.getFilePreview(uploadedFile.$id)
-        console.log(fileUrl);
+        //fileUrl);
         if(!fileUrl) {
           this.deleteFile(uploadedFile.$id)
           throw Error}
@@ -416,7 +416,7 @@ return incrementMEFollowing
         return updatedPost
 
   } catch (error) {
-    console.log(error);
+    //error);
     
   }
  }
@@ -429,7 +429,7 @@ return incrementMEFollowing
     )
     return file
   } catch (error) {
-    console.log(error);
+    //error);
     
     throw error.message
   }
@@ -447,7 +447,7 @@ return incrementMEFollowing
 
     return posts;
   } catch (error) {
-    console.log(error);
+    //error);
   }
  }
 
@@ -465,11 +465,11 @@ getInfinitePosts=async({pageParam}: { pageParam: number })=>{
     );
 
     if (!posts) throw Error;
-console.log(posts);
+//posts);
 
     return posts;
   } catch (error) {
-    console.log(error);
+    //error);
   }
  }
 
@@ -488,11 +488,11 @@ console.log(posts);
     );
 
     if (!posts) throw Error;
-console.log(posts);
+//posts);
 
     return posts;
   } catch (error) {
-    console.log(error);
+    //error);
   }
  }
 
@@ -511,11 +511,11 @@ console.log(posts);
     );
 
     if (!user) throw Error;
-console.log(user);
+//user);
 
     return user;
   } catch (error) {
-    console.log(error);
+    //error);
   }
  }
 
@@ -526,7 +526,7 @@ console.log(user);
     queries.push(Query.cursorAfter(pageParam.toString()));
   }
   try {
-    console.log(id);
+    //id);
     
     let posts = await this.database.listDocuments(
       conf.DATABASE_ID,
@@ -535,11 +535,11 @@ console.log(user);
     );
 
     if (!posts) throw Error;
-console.log(posts);
+//posts);
 
     return posts;
   } catch (error) {
-    console.log(error);
+    //error);
   }
  }
  getInfinitePostsOfUserOnly=async({pageParam,id}: { pageParam: number,id:string })=>{
@@ -556,11 +556,11 @@ console.log(posts);
     );
 
     if (!posts) throw Error;
-console.log(posts);
+//posts);
 
     return posts;
   } catch (error) {
-    console.log(error);
+    //error);
   }
  }
 
@@ -571,11 +571,11 @@ console.log(posts);
           conf.USER,
           id
         )
-        console.log(userdetail);
+        //userdetail);
         
         return userdetail
       } catch (error) {
-        console.log(error);
+        //error);
         
       }
  }
@@ -594,7 +594,7 @@ console.log(posts);
     if(!updateProfile)throw Error
     return updateProfile
    } catch (error) {
-    console.log(error);
+    //error);
     
    }
 
@@ -602,7 +602,7 @@ console.log(posts);
  }
  async updateProfilePic(file,id){
       try {
-        console.log(file);
+        //file);
         
        let uploadFile = await this.storage.createFile(conf.BUCKET_ID,ID.unique(),file)
 
@@ -619,7 +619,7 @@ console.log(posts);
 
 
       } catch (error) {
-        console.log(error);
+        //error);
         
       }
  }

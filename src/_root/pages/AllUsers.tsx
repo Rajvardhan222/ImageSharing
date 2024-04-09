@@ -11,11 +11,11 @@ import { useInView } from "react-intersection-observer";
 function AllUsers() {
   const [searchValue, setSearchValue] = useState('')
   const {data:user,hasNextPage,isFetchingNextPage,fetchNextPage,isFetching} = useGetInfinityUser()
-  console.log(user);
+  //user);
   const debouncedSearch = useDebounce(searchValue, 500);
   const {data:searchResult,isFetching:isSearchFetching,hasNextPage:searchHasNextPage,fetchNextPage:fetchSearchNextPage} = useGetInfinityUserSearch(debouncedSearch)
   const { ref, inView } = useInView();
-  console.log(searchResult);
+  //searchResult);
   
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function AllUsers() {
 
   useEffect(() => {
     if (debouncedSearch !== '') {
-      console.log(debouncedSearch);
+      //debouncedSearch);
       
       fetchSearchNextPage();
     }
